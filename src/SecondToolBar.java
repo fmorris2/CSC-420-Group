@@ -4,6 +4,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import helpers.ButtonWithImage;
 import net.miginfocom.swing.MigLayout;
 
 public class SecondToolBar extends JPanel
@@ -17,7 +18,9 @@ public class SecondToolBar extends JPanel
 		setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		
 		add(new ButtonWithImage(HOME_BUTTON_PATH));
-		add(new JButton("Class"));
-		add(new JButton("Meta Info"));
+		add(new JButton("Social Studies"));
+		add(new JButton("Students"));
+		add(new JButton("Noah Pierce"));
+		add(new JButton("Missing Assignments"));
 	}
 }

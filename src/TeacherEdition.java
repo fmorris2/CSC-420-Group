@@ -1,3 +1,5 @@
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -16,6 +18,7 @@ public class TeacherEdition extends JFrame
 	public TeacherEdition()
 	{	
 		setTitle("Teacher Edition");
+		setPreferredSize(new Dimension(1200, 750));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//Layout, Column, Row constraints

@@ -1,5 +1,4 @@
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -23,7 +22,6 @@ public class Main
 	{
 		// Create and set up the window.
 		JFrame frame = new TeacherEdition();
-		// frame.setPreferredSize(new Dimension(600,600));
 		frame.setVisible(true);
 	}
 }
