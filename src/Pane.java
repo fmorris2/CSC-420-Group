@@ -1,17 +1,13 @@
+import java.awt.Color;
+import java.awt.Dimension;
 
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
-import javax.swing.*;
-import java.awt.*;
-
-
-/**
- * Created by noybo_000 on 10/22/2016.
- *//**
- * Created by noybo_000 on 10/21/2016.
- */
-public class Pane extends JPanel {
+public class Pane extends JPanel 
+{
 	private static final long serialVersionUID = 5733242319703543762L;
 	
 	JPanel mainPanel;
@@ -24,11 +20,12 @@ public class Pane extends JPanel {
     JButton settingsButton;
     JButton homeButton;
 
-    public Pane() {
+    public Pane() 
+    {
         JPanel base = new JPanel(new MigLayout(
                 "",
-                "[grow][grow]",
-                "[grow][grow]"
+                "[fill][fill]",
+                "[fill][fill]"
         ));
 
         //Component panels
@@ -37,7 +34,7 @@ public class Pane extends JPanel {
                 "[]",
                 "[][]"
         ));
-//        mainPanel.setPreferredSize(new Dimension(400, 400));
+        //mainPanel.setPreferredSize(new Dimension(400, 400));
         mainPanel.setVisible(true);
         mainPanel.setBackground(new Color(164, 211, 238));
 
@@ -81,45 +78,5 @@ public class Pane extends JPanel {
         listPanel.add(explorerBarListPanel, "dock north, span, wrap, height 10:25:100, width 50:100:200");
 
 
-    }
-    public static void main(String[] args){
-        //Schedule a job for the event-dispatch thread:
-        //creating and showing this GUI.
-        try {
-            // Set cross-platform Java L&F (also called "Metal")
-            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        }
-        catch (UnsupportedLookAndFeelException e) {
-            // handle exception
-        }
-        catch (ClassNotFoundException e) {
-            // handle exception
-        }
-        catch (InstantiationException e) {
-            // handle exception
-        }
-        catch (IllegalAccessException e) {
-            // handle exception
-        }
-
-        javax.swing.SwingUtilities.invokeLater(new Runnable(){
-            public void run(){
-                createAndShowGUI();
-            }
-        });
-    }
-
-    private static void createAndShowGUI() {
-        //Create and set up the window.
-        JFrame frame = new JFrame("Teacher Edition");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        //Create and set up the content pane.
-        JPanel newContentPane = new Pane();
-        newContentPane.setOpaque(true);
-        frame.setContentPane(newContentPane);
-//        frame.setPreferredSize(new Dimension(600,600));
-        frame.pack();
-        frame.setVisible(true);
     }
 }
