@@ -1,3 +1,4 @@
+package org;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
@@ -5,15 +6,19 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
+import org.main_components.InfoList;
+import org.main_components.MainPane;
+import org.main_components.ToolBar;
+
 public class TeacherEdition extends JFrame
 {
 	private static final long serialVersionUID = -7684843444939271292L;
 	
 	private JPanel contentPanel;
 	private JPanel toolBar = new ToolBar();
-	private JPanel secondToolBar = new SecondToolBar();
+	//private JPanel secondToolBar = new BreadcrumbsBar();
 	private JPanel infoList = new InfoList();
-	private JPanel mainPane = new MainPane();
+	private static MainPane mainPane = new MainPane();
 	
 	public TeacherEdition()
 	{	
@@ -25,11 +30,16 @@ public class TeacherEdition extends JFrame
 		contentPanel = new JPanel(new MigLayout("fill", "-1[grow,fill]", ""));
 		
 		contentPanel.add(toolBar, "dock north, wrap");
-		contentPanel.add(secondToolBar, "dock north, wrap");
+		//contentPanel.add(secondToolBar, "dock north, wrap");
 		contentPanel.add(infoList, "dock west");
 		contentPanel.add(mainPane, "grow, width max(500, 50%)");
 		
 		setContentPane(contentPanel);
 		pack();
+	}
+	
+	public static void changeMainDisplay(JPanel d)
+	{
+		mainPane.setDisplay(d);
 	}
 }

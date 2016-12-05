@@ -1,4 +1,4 @@
-package helpers;
+package org.main_components.helpers;
 /**
  * @(#)StretchIcon.java	1.0 03/27/12
  */

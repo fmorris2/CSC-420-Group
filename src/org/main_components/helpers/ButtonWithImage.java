@@ -1,4 +1,4 @@
-package helpers;
+package org.main_components.helpers;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;

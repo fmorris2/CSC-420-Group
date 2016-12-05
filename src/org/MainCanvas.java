@@ -1,3 +1,4 @@
+package org;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -6,7 +7,7 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
-public class Pane extends JPanel 
+public class MainCanvas extends JPanel 
 {
 	private static final long serialVersionUID = 5733242319703543762L;
 	
@@ -20,7 +21,7 @@ public class Pane extends JPanel
     JButton settingsButton;
     JButton homeButton;
 
-    public Pane() 
+    public MainCanvas() 
     {
         JPanel base = new JPanel(new MigLayout(
                 "",
