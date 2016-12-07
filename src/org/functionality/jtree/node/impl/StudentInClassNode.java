@@ -3,7 +3,7 @@ package org.functionality.jtree.node.impl;
 import org.functionality.Classroom;
 import org.functionality.Student;
 import org.functionality.jtree.node.InfoNode;
-import org.main_components.main_pane_displays.info_displays.StudentInClassDisplay;
+import org.main_components.main_pane_displays.info_displays.jtree_displays.StudentInClassDisplay;
 
 public class StudentInClassNode extends InfoNode
 {

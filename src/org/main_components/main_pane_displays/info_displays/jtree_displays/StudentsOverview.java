@@ -1,4 +1,4 @@
-package org.main_components.main_pane_displays.info_displays;
+package org.main_components.main_pane_displays.info_displays.jtree_displays;
 
 import java.awt.Font;
 

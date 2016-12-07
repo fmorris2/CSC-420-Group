@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 import org.functionality.Assignment;
 import org.functionality.Student;
 import org.functionality.jtree.node.InfoNode;
-import org.main_components.main_pane_displays.info_displays.StudentDisplay;
+import org.main_components.main_pane_displays.info_displays.jtree_displays.StudentDisplay;
 
 public class StudentNode extends InfoNode
 {

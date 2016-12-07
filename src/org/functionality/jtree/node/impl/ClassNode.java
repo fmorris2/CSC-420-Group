@@ -2,9 +2,9 @@ package org.functionality.jtree.node.impl;
 
 import org.functionality.Classroom;
 import org.functionality.jtree.node.InfoNode;
-import org.main_components.main_pane_displays.info_displays.AssignmentsInClassOverview;
-import org.main_components.main_pane_displays.info_displays.ClassDisplay;
-import org.main_components.main_pane_displays.info_displays.StudentsInClassOverview;
+import org.main_components.main_pane_displays.info_displays.jtree_displays.AssignmentsInClassOverview;
+import org.main_components.main_pane_displays.info_displays.jtree_displays.ClassDisplay;
+import org.main_components.main_pane_displays.info_displays.jtree_displays.StudentsInClassOverview;
 
 public class ClassNode extends InfoNode
 {

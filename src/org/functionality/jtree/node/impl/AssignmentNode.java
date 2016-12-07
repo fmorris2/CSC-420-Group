@@ -2,7 +2,7 @@ package org.functionality.jtree.node.impl;
 
 import org.functionality.Assignment;
 import org.functionality.jtree.node.InfoNode;
-import org.main_components.main_pane_displays.info_displays.AssignmentDisplay;
+import org.main_components.main_pane_displays.info_displays.jtree_displays.AssignmentDisplay;
 
 public class AssignmentNode extends InfoNode
 {

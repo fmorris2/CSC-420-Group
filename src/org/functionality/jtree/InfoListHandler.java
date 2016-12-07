@@ -15,9 +15,9 @@ import org.functionality.jtree.node.impl.ClassNode;
 import org.functionality.jtree.node.impl.StudentInClassNode;
 import org.functionality.jtree.node.impl.StudentNode;
 import org.main_components.main_pane_displays.HomeDisplay;
-import org.main_components.main_pane_displays.info_displays.AssignmentsOverview;
-import org.main_components.main_pane_displays.info_displays.ClassesOverview;
-import org.main_components.main_pane_displays.info_displays.StudentsOverview;
+import org.main_components.main_pane_displays.info_displays.jtree_displays.AssignmentsOverview;
+import org.main_components.main_pane_displays.info_displays.jtree_displays.ClassesOverview;
+import org.main_components.main_pane_displays.info_displays.jtree_displays.StudentsOverview;
 import org.utils.Utils;
 
 public class InfoListHandler
