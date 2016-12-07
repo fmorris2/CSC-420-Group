@@ -4,18 +4,20 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.utils.Utils;
+
 public class Student
 {
 	private String firstName, lastName;
 	private List<Classroom> classes;
-	private List<Assignment> currentAssignments;
+	private List<Assignment> incompleteAssignments;
 	private List<Assignment> completedAssignments;
 	
 	public Student(String firstName, String lastName)
 	{
 		this.firstName = firstName;
 		this.lastName = lastName;
-		currentAssignments = new ArrayList<>();
+		incompleteAssignments = new ArrayList<>();
 		completedAssignments = new ArrayList<>();
 		classes = new ArrayList<>();
 	}
@@ -30,14 +32,19 @@ public class Student
 		return lastName;
 	}
 	
+	public String getName()
+	{
+		return firstName + " " + lastName;
+	}
+	
 	public List<Classroom> getClasses()
 	{
 		return classes;
 	}
 	
-	public List<Assignment> getCurrentAssignments()
+	public List<Assignment> getIncompleteAssignments()
 	{
-		return currentAssignments;
+		return incompleteAssignments;
 	}
 	
 	public List<Assignment> getCompletedAssignments()
@@ -48,7 +55,7 @@ public class Student
 	public List<Assignment> getLateAssignments()
 	{
 		List<Assignment> lateAssignments = new ArrayList<>();
-		for(Assignment a : currentAssignments)
+		for(Assignment a : incompleteAssignments)
 			if(LocalDateTime.now().isAfter(a.getDueDate()))
 				lateAssignments.add(a);
 		
@@ -57,15 +64,21 @@ public class Student
 	
 	public void addAssignment(Assignment a)
 	{
-		if(!currentAssignments.contains(a))
-			currentAssignments.add(a);
+		if(!incompleteAssignments.contains(a) && !completedAssignments.contains(a))
+		{
+			//FOR RANDOMIZATION WITH GENERATION
+			if(Utils.randomInt(0, 3) > 0)
+				completedAssignments.add(a);
+			else
+				incompleteAssignments.add(a);
+		}
 	}
 	
 	public void completeAssignment(Assignment a)
 	{
-		System.out.println("CurrentAssignments size before completion: " + currentAssignments.size());
-		currentAssignments.remove(a);
-		System.out.println("CurrentAssignments size after completion: " + currentAssignments.size());
+		System.out.println("CurrentAssignments size before completion: " + incompleteAssignments.size());
+		incompleteAssignments.remove(a);
+		System.out.println("CurrentAssignments size after completion: " + incompleteAssignments.size());
 		completedAssignments.add(a);
 	}
 }

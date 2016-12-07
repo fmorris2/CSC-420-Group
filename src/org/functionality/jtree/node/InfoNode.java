@@ -7,8 +7,8 @@ public class InfoNode extends DefaultMutableTreeNode
 {
 	private static final long serialVersionUID = -6467809171498560817L;
 	
-	private JPanel display;
-	private String name;
+	protected JPanel display;
+	protected String name;
 	
 	public InfoNode(String name, JPanel display)
 	{

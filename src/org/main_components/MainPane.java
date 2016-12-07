@@ -25,11 +25,11 @@ public class MainPane extends JPanel
 	}
 	
 	public void setDisplay(JPanel p)
-	{
+	{	
 		remove(currentDisplay);
 		repaint();
-		currentDisplay = p;
-		add(p, "grow");
+		currentDisplay = p == null ? new JPanel() : p;
+		add(currentDisplay, "grow");
 		revalidate();
 	}
 }
