@@ -11,7 +11,7 @@ public class AlertButton extends JButton
 	
 	public AlertButton()
 	{
-		super("Alerts (0)");
+		super("Alerts (12)");
 		addActionListener((e) -> TeacherEdition.changeMainDisplay(new AlertDisplay()));
 	}
 }

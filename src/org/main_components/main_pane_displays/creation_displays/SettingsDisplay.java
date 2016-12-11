@@ -8,6 +8,8 @@ import org.main_components.main_pane_displays.MainPaneDisplay;
 
 public class SettingsDisplay extends MainPaneDisplay
 {
+	public SettingsDisplay() {
+	}
 	private static final long serialVersionUID = -1089625993780803796L;
 	private static final Font FONT =  new Font("Serif", Font.BOLD, 24);
 
