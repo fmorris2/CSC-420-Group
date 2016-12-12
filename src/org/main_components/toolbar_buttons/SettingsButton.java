@@ -2,7 +2,7 @@ package org.main_components.toolbar_buttons;
 
 import org.TeacherEdition;
 import org.main_components.helpers.ButtonWithImage;
-import org.main_components.main_pane_displays.creation_displays.SettingsDisplay;
+import org.main_components.main_pane_displays.info_displays.SettingsDisplay;
 
 public class SettingsButton extends ButtonWithImage
 {
