@@ -33,7 +33,7 @@ public class HelpDisplay extends MainPaneDisplay
 		label1.setFont(FONT);
 		label1.setHorizontalAlignment(JLabel.CENTER);
 
-		add(label1, "span, wrap");
+		add(label1, "span");
 	}
 
 }
