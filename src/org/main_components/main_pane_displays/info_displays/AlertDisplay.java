@@ -50,6 +50,7 @@ public class AlertDisplay extends MainPaneDisplay
 		list.add(new AlertPanel("Chia Kirby turned Science Assignment 2 homework in late.","12/11/16 9:02AM"));
 		list.add(new AlertPanel("Liz Castro turned Science Assignment 2 homework in late.","12/11/16 9:02AM"));
 		list.add(new AlertPanel("Tona Doyle turned Science Assignment 2 homework in late.","12/11/16 9:02AM"));
+		list.add(new AlertPanel("Tony Hawk turned in his kickflip homework early!","12/9/16 8:00AM"));
 		return list;
 	}
 }
