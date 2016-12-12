@@ -93,7 +93,7 @@ public class InfoListHandler
 				else
 					randomTime = randomTime.minusDays(Utils.randomInt(1, 30));
 				
-				Assignment a = new Assignment((c.getClassroom().getName() + " assignment " + (i + 1)), randomTime, c.getClassroom());
+				Assignment a = new Assignment((c.getClassroom().getName() + " assignment " + (i + 1)), randomTime, c.getClassroom(), "");
 				AssignmentNode aNode = new AssignmentNode(a);
 				AssignmentNode aNodeClone = new AssignmentNode(a);
 				assignmentNodes.add(aNode);

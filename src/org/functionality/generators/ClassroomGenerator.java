@@ -22,4 +22,11 @@ public class ClassroomGenerator
 	{
 		return classes;
 	}
+	
+	public Classroom addClass(String s){
+		Classroom c = new Classroom(s);
+		classes.add(c);
+		System.out.println(s);
+		return c;
+	}
 }
