@@ -39,6 +39,7 @@ public class AlertDisplay extends MainPaneDisplay
 	private ArrayList<AlertPanel> makeAlertsList() {
 		ArrayList<AlertPanel> list = new ArrayList<AlertPanel>();
 		list.add(new AlertPanel("Math Assignment 1 due. 4 assignments not turned in.","12/10/16 11:00AM"));
+		list.add(new AlertPanel("Ara Weldon needs help on Social Studies Assignment 2.","12/9/16 12:00PM"));
 		list.add(new AlertPanel("Kelsi Parham turned Math Assignment 1 in late.","12/10/16 12:00PM"));
 		list.add(new AlertPanel("Jonas Ivy turned Math Assignment 1 in late.","12/10/16 1:00PM"));
 		list.add(new AlertPanel("Noel Finn turned Math Assignment 1 in late.","12/10/16 2:30PM"));
