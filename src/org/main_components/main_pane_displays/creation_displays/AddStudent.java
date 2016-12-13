@@ -113,6 +113,10 @@ public class AddStudent extends MainPaneDisplay implements ActionListener
 			outModel.removeElement(outList.getSelectedValue());
 		} else {
 			addStudentToTree();
+			for(int i = 0; i < outModel.getSize(); i++){
+				inModel.addElement(outModel.getElementAt(i));
+			}
+			outModel.clear();
 		}
 	}
 

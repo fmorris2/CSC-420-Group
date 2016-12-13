@@ -100,6 +100,14 @@ public class AddClass extends MainPaneDisplay implements ActionListener
 			}
 			
 			InfoListHandler.addClass(newClass, true);
+			
+			nameField.setText("");
+			int n = outModel.getSize();
+			
+			for (int i = 0; i < n; i++){
+				inModel.addElement(outModel.getElementAt(i));
+			}
+			outModel.clear();
 		}
 		
 	}

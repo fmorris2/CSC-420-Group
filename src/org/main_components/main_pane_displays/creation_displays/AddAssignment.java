@@ -113,6 +113,9 @@ public class AddAssignment extends MainPaneDisplay implements ActionListener
 		Assignment toAdd = new Assignment(fieldName.getText(), ldt, 
 				classChoose.getItemAt(classChoose.getSelectedIndex()), descriptionArea.getText());
 		InfoListHandler.addAssignment(toAdd);
+		fieldName.setText("");
+		descriptionArea.setText("");
+		fields.setText("Sweet Jesus, the assignment is submitted!");
 	}
 	private boolean allfieldsfull() {
 		if (fieldName.getText().isEmpty() || descriptionArea.getText().isEmpty()){
