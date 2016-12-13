@@ -2,7 +2,6 @@ package org.main_components.main_pane_displays.creation_displays;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,51 +13,51 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import org.functionality.generators.ClassroomGenerator;
+import org.functionality.Classroom;
+import org.functionality.jtree.InfoListHandler;
+import org.functionality.jtree.node.impl.ClassNode;
 import org.main_components.main_pane_displays.MainPaneDisplay;
-
-import net.miginfocom.swing.MigLayout;
 
 public class AddStudent extends MainPaneDisplay implements ActionListener
 {
 	private static final long serialVersionUID = 5796983569443360161L;
-	private static final Font FONT =  new Font("Serif", Font.BOLD, 15);
-	private static final Font FONT2 =  new Font("Serif", Font.BOLD, 24);
 	private JTextField nameFirstField, nameLastField;
-	private DefaultListModel<String> inModel, outModel;
-	JList<String> inList, outList;
+	private DefaultListModel<Classroom> inModel, outModel;
+	JList<Classroom> inList, outList;
 	
 	@Override
 	protected void addComponents()
 	{
-		setLayout(new MigLayout(
-				"",
-				"[][]",
-				"[][][][][][]"));
 		JLabel labelOne = new JLabel("ADD STUDENT");
-		labelOne.setFont(FONT2);
+		labelOne.setFont(MainPaneDisplay.HEADER_FONT);
 		JLabel nameLabel = new JLabel("First Name");
-		nameLabel.setFont(FONT);
+		nameLabel.setFont(MainPaneDisplay.INFO_FONT);
 		nameFirstField = new JTextField(20);
+		nameFirstField.setFont(MainPaneDisplay.MINOR_FONT);
 		JLabel lastLabel = new JLabel("Last Name");
-		lastLabel.setFont(FONT);
+		lastLabel.setFont(MainPaneDisplay.INFO_FONT);
 		nameLastField = new JTextField(20);
+		nameLastField.setFont(MainPaneDisplay.MINOR_FONT);
 		inModel = new DefaultListModel<>();
 		inList = getClassList();
+		inList.setFont(MainPaneDisplay.MINOR_FONT);
 		JScrollPane namePane = new JScrollPane(inList);
 		namePane.setPreferredSize(new Dimension(180, 400));
-		outModel = new DefaultListModel<String>();
-		outList = new JList<String>(outModel);
+		outModel = new DefaultListModel<>();
+		outList = new JList<>(outModel);
+		outList.setFont(MainPaneDisplay.MINOR_FONT);
 		JScrollPane classPane = new JScrollPane(outList);
 		classPane.setPreferredSize(new Dimension(180, 400));
 		JButton addButton = new JButton("Add Student to Class");
+		addButton.setFont(MainPaneDisplay.MINOR_FONT);
 		addButton.addActionListener((ActionListener) this);
 		addButton.setActionCommand("ADD");
 		JButton remove = new JButton("Remove Student from Class");
+		remove.setFont(MainPaneDisplay.MINOR_FONT);
 		remove.addActionListener((ActionListener) this);
 		remove.setActionCommand("REMOVE");
 		JButton submit = new JButton("Submit");
-		submit.setFont(FONT);
+		submit.setFont(MainPaneDisplay.INFO_FONT);
 		submit.addActionListener((ActionListener) this);
 		submit.setActionCommand("SUBMIT");
 		add(labelOne, "span");
@@ -79,12 +78,11 @@ public class AddStudent extends MainPaneDisplay implements ActionListener
 		
 	}
 
-	private JList<String> getClassList() {
-		// NEED HELP HERE FRED
-		for (String s : ClassroomGenerator.CLASS_NAMES){
-			inModel.addElement(s);
+	private JList<Classroom> getClassList() {
+		for (ClassNode n : InfoListHandler.classNodes){
+			inModel.addElement(n.getClassroom());
 		}
-		return new JList<String>(inModel);
+		return new JList<>(inModel);
 	}
 
 	@Override

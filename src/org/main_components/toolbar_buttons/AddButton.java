@@ -1,5 +1,8 @@
 package org.main_components.toolbar_buttons;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -9,16 +12,20 @@ import org.main_components.main_pane_displays.creation_displays.AddAssignment;
 import org.main_components.main_pane_displays.creation_displays.AddClass;
 import org.main_components.main_pane_displays.creation_displays.AddStudent;
 
-public class AddButton extends JButton
+public class AddButton extends JButton implements MouseMotionListener
 {
 	private static final long serialVersionUID = -885998939215708049L;
 	private final JPopupMenu MENU = new JPopupMenu("Test");
 	private final JMenuItem CLASS, STUDENT, ASSIGNMENT;
 	
+	private int mouseX, mouseY;
+	
 	public AddButton()
 	{
 		super("Add Item");
-		addActionListener((e) ->  MENU.show(this, this.getX(), this.getY()));
+		addMouseMotionListener(this);
+		
+		addActionListener((e) ->  MENU.show(this, mouseX, mouseY));
 		
 		CLASS = new JMenuItem("Class");
 		CLASS.addActionListener((e) -> TeacherEdition.changeMainDisplay(new AddClass()));
@@ -32,5 +39,16 @@ public class AddButton extends JButton
 		MENU.add(CLASS);
 		MENU.add(STUDENT);
 		MENU.add(ASSIGNMENT);
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0)
+	{}
+
+	@Override
+	public void mouseMoved(MouseEvent e)
+	{
+		mouseX = e.getX();
+		mouseY = e.getY();
 	}
 }

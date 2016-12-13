@@ -2,6 +2,7 @@ package org;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 public class Main
 {
@@ -9,7 +10,15 @@ public class Main
 	{
 		try
 		{
-			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			// enable anti-aliasing
+			System.setProperty("awt.useSystemAAFontSettings","on");
+			System.setProperty("swing.aatext", "true");
+			
+			//print out available LookAndFeels for debugging
+			for(LookAndFeelInfo n : UIManager.getInstalledLookAndFeels())
+				System.out.println(n.getClassName());
+			
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 			SwingUtilities.invokeLater(() -> {createAndShowGUI();});
 		}
 		catch(Exception e)

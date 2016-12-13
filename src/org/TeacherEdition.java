@@ -4,11 +4,11 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import net.miginfocom.swing.MigLayout;
-
 import org.main_components.InfoList;
 import org.main_components.MainPane;
 import org.main_components.ToolBar;
+
+import net.miginfocom.swing.MigLayout;
 
 public class TeacherEdition extends JFrame
 {
@@ -31,7 +31,7 @@ public class TeacherEdition extends JFrame
 		
 		contentPanel.add(toolBar, "dock north, wrap");
 		//contentPanel.add(secondToolBar, "dock north, wrap");
-		contentPanel.add(infoList, "dock west");
+		contentPanel.add(infoList, "dock west, wmin pref");
 		contentPanel.add(mainPane, "grow, width max(500, 50%)");
 		
 		setContentPane(contentPanel);

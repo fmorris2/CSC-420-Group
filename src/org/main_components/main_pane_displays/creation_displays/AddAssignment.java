@@ -1,8 +1,6 @@
 package org.main_components.main_pane_displays.creation_displays;
 
 import java.awt.Dimension;
-
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
@@ -10,6 +8,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -18,11 +17,10 @@ import javax.swing.JTextField;
 
 import org.functionality.Assignment;
 import org.functionality.Classroom;
-import org.functionality.generators.ClassroomGenerator;
-
+import org.functionality.jtree.InfoListHandler;
+import org.functionality.jtree.node.impl.ClassNode;
 import org.main_components.main_pane_displays.MainPaneDisplay;
 
-import net.miginfocom.swing.MigLayout;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -30,67 +28,69 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 public class AddAssignment extends MainPaneDisplay implements ActionListener
 {
 	private static final long serialVersionUID = 1318874985175193927L;
-	private static final Font FONT =  new Font("Serif", Font.BOLD, 15);
-	private static final Font FONT2 =  new Font("Serif", Font.BOLD, 30);
 	private JTextField fieldName;
 	private JTextArea descriptionArea;
-	private JComboBox<String> classChoose;
+	private JComboBox<Classroom> classChoose;
+	private DefaultComboBoxModel<Classroom> boxModel;
 	private JLabel fields;
 	private JDatePickerImpl datePicker;
 	
 	@Override
 	protected void addComponents()
 	{
-		setLayout(new MigLayout(
-				"",
-				"[][][]",
-				"[][][][][]"));
-		JLabel addTaskLabel = new JLabel("Add New Task");
-		addTaskLabel.setFont(FONT2);
+		JLabel addTaskLabel = new JLabel("Add New Assignment");
+		addTaskLabel.setFont(MainPaneDisplay.HEADER_FONT);
 		JLabel labelName = new JLabel("Assignment Name:");
-		labelName.setFont(FONT);
-		fieldName = new JTextField(400);
+		labelName.setFont(MainPaneDisplay.INFO_FONT);
+		fieldName = new JTextField();
 		fieldName.isEditable();
+		fieldName.setFont(MainPaneDisplay.MINOR_FONT);
 		JLabel descriptionLabel = new JLabel("Assignment Description:");
-		descriptionLabel.setFont(FONT);
+		descriptionLabel.setFont(MainPaneDisplay.INFO_FONT);
 		descriptionArea = new JTextArea(5,100);
-		descriptionArea.isEditable();
-		descriptionArea.setMaximumSize(new Dimension(1000, 400));
+		descriptionArea.setMaximumSize(new Dimension(400, 400));
 		descriptionArea.setLineWrap(true);
+		descriptionArea.setFont(MainPaneDisplay.MINOR_FONT);
+		boxModel = new DefaultComboBoxModel<>();
 		classChoose = getClassBox();
 		JLabel dateLabel = new JLabel("Due Date: ");
-		dateLabel.setFont(FONT);
+		dateLabel.setFont(MainPaneDisplay.INFO_FONT);
 		UtilDateModel model = new UtilDateModel();
 		model.setDate(2016, 12, 13);
 		JDatePanelImpl datePanel = new JDatePanelImpl(model);
 		datePanel.setSize(50, 10);
 		datePicker = new JDatePickerImpl(datePanel);
+		datePicker.setFont(MainPaneDisplay.MINOR_FONT);
 		JButton submit = new JButton("Submit");
-		submit.setFont(FONT);
+		submit.setFont(MainPaneDisplay.INFO_FONT);
 		submit.addActionListener((ActionListener) this);
 		fields = new JLabel("      ");
 		fields.setVisible(false);
-		fields.setFont(FONT);
+		fields.setFont(MainPaneDisplay.INFO_FONT);
+		
+		JLabel classLabel = new JLabel("Class:");
+		classLabel.setFont(MainPaneDisplay.INFO_FONT);
+		classChoose.setFont(MainPaneDisplay.INFO_FONT);
 		
 		//Add components
 		add(addTaskLabel, "wrap");
 		add(labelName, "split");
-		add(fieldName, "span, wrap");
+		add(fieldName, "span, wrap, growx");
 		add(descriptionLabel, "wrap");
-		add(descriptionArea, "span, wrap");
-//		add(dateLabel);
-		add(datePicker, "split, left");
-		add(classChoose, "wrap" );
+		add(descriptionArea, "span, wrap, grow");
+		add(dateLabel, "wrap");
+		add(datePicker, "split, left, grow, wrap");
+		add(classLabel, "wrap");
+		add(classChoose, "wrap, grow");
 		add(fields, "span 1");
 		add(submit);
-		
-		
-		
-		
 	}
-	private JComboBox<String> getClassBox() {
-		// NEED HELP HERE FRED
-		return new JComboBox<String>(ClassroomGenerator.CLASS_NAMES);
+	
+	private JComboBox<Classroom> getClassBox() {
+		for(ClassNode c : InfoListHandler.classNodes)
+			boxModel.addElement(c.getClassroom());
+		
+		return new JComboBox<>(boxModel);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {

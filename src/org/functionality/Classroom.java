@@ -20,6 +20,7 @@ public class Classroom
 	{
 		if(!students.contains(s))
 		{	
+			s.getClasses().add(this);
 			students.add(s);
 			for(Assignment a : assignments)
 				s.addAssignment(a);
@@ -36,7 +37,22 @@ public class Classroom
 		}
 	}
 	
+	public List<Student> getStudents()
+	{
+		return students;
+	}
+	
+	public List<Assignment> getAssignments()
+	{
+		return assignments;
+	}
+	
 	public String getName()
+	{
+		return name;
+	}
+	
+	public String toString()
 	{
 		return name;
 	}

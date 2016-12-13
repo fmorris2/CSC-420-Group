@@ -32,10 +32,10 @@ public class AlertPanel extends JPanel {
 		this.setMinimumSize(new Dimension(50, 125));
 		this.setBackground(Color.LIGHT_GRAY);
 		lblDatetime = new JLabel(dateAndTime);
-		lblDatetime.setFont(new Font("Courier New", Font.BOLD, 9));
+		lblDatetime.setFont(new Font("Segoe UI", Font.BOLD, 9));
 		lblDatetime.setForeground(Color.GRAY);
 		lblMessage = new JLabel(message);
-		lblMessage.setFont(new Font("Courier New", Font.PLAIN, 14));
+		lblMessage.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		lblMessage.setForeground(Color.BLACK);
 		
 

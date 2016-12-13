@@ -1,41 +1,83 @@
 package org.main_components.main_pane_displays.info_displays.jtree_displays;
 
-import java.awt.Font;
+import java.text.DecimalFormat;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
+import org.functionality.Assignment;
 import org.functionality.Classroom;
-import org.main_components.main_pane_displays.DynamicInfoDisplay;
+import org.functionality.Student;
 
-import net.miginfocom.swing.MigLayout;
-
-public class StudentsInClassOverview extends JPanel implements DynamicInfoDisplay
+public class StudentsInClassOverview extends MainPaneDynamicDisplay
 {
 	private static final long serialVersionUID = -8148189815160083892L;
-	private static final Font FONT = new Font("Serif", Font.BOLD, 24);
 
 	private Classroom classroom;
 	
 	public StudentsInClassOverview(Classroom c)
 	{
 		classroom = c;
-		setLayout(new MigLayout("fill", "10[grow, fill]", ""));
-		addComponents();
 	}
 
-	protected void addComponents()
-	{
-		JLabel labelOne = new JLabel("STUDENTS IN CLASS OVERVIEW FOR: " + classroom.getName());
-		labelOne.setFont(FONT);
-		labelOne.setHorizontalAlignment(JLabel.CENTER);
-
-		add(labelOne, "span");
-	}
 	@Override
-	public void refresh()
+	protected String[] getInfo()
 	{
+		final int ON_TIME = getNumAssignments(true);
+		final int LATE = getNumAssignments(false);
+		DecimalFormat df = new DecimalFormat("#.#");
+		final double TOTAL = ON_TIME + LATE;
 		
+		String onTimeRate;
+		if(TOTAL != 0) 
+			onTimeRate = df.format(((ON_TIME / TOTAL) * 100)) + "% of assignments were completed on time";
+		else
+			onTimeRate = "No assignments are due yet";
+					
+		return new String[]{
+				"Students in class: " + classroom.getStudents().size(),
+				"Total students with late assignments: " + getNumLateStudents(),
+				onTimeRate};
 	}
 
+	@Override
+	protected String getHeader()
+	{
+		return "Students Overview for " + classroom.getName();
+	}
+	
+	private int getNumLateStudents()
+	{
+		int num = 0;
+		for(Student student : classroom.getStudents())
+		{
+			for(Assignment a : classroom.getAssignments())
+			{
+				if(!a.isPastDue())
+					continue;
+				if(student.getLateAssignments().contains(a))
+				{
+					num++;
+					break;
+				}
+			}
+		}
+		
+		return num;
+	}
+	
+	private int getNumAssignments(boolean onTime)
+	{
+		int assignments = 0;
+		for(Student student : classroom.getStudents())
+		{
+			for(Assignment a : classroom.getAssignments())
+			{
+				if(!a.isPastDue())
+					continue;
+				
+				if(onTime ? student.getCompletedAssignments().contains(a) : student.getLateAssignments().contains(a))
+					assignments++;
+			}
+		}
+		
+		return assignments;
+	}
 }

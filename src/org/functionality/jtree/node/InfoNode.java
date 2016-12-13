@@ -17,9 +17,20 @@ public class InfoNode extends DefaultMutableTreeNode
 		this.display = display;
 	}
 	
+	public InfoNode(String name)
+	{
+		super(name);
+		this.name = name;
+	}
+	
 	public JPanel getDisplay()
 	{
 		return display;
+	}
+	
+	public void setDisplay(JPanel display)
+	{
+		this.display = display;
 	}
 	
 	public String toString()

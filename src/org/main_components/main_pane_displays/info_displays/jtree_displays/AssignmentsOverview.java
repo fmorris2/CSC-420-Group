@@ -1,30 +1,41 @@
 package org.main_components.main_pane_displays.info_displays.jtree_displays;
 
-import java.awt.Font;
+import org.functionality.jtree.InfoListHandler;
+import org.functionality.jtree.node.impl.AssignmentNode;
 
-import javax.swing.JLabel;
-
-import org.main_components.main_pane_displays.DynamicInfoDisplay;
-import org.main_components.main_pane_displays.MainPaneDisplay;
-
-public class AssignmentsOverview extends MainPaneDisplay implements DynamicInfoDisplay
+public class AssignmentsOverview extends MainPaneDynamicDisplay
 {
 	private static final long serialVersionUID = 3843032058848483990L;
-	private static final Font FONT =  new Font("Serif", Font.BOLD, 24);
 
 	@Override
-	protected void addComponents()
+	protected String[] getInfo()
 	{
-		JLabel labelOne = new JLabel("ASSIGNMENTS OVERVIEW");
-		labelOne.setFont(FONT);
-		labelOne.setHorizontalAlignment(JLabel.CENTER);
+		final int TOTAL_ASSIGNMENTS = getTotalAssignments();
+		final int PAST_DUE = getTotalPastDueAssignments();
+		return new String[]{
+				"Total number of assignments: " + TOTAL_ASSIGNMENTS,
+				"Total assignments not yet due: " + (TOTAL_ASSIGNMENTS - PAST_DUE),
+				"Total assignments past due: " + PAST_DUE};
+	}
+	
+	@Override
+	protected String getHeader()
+	{
+		return "Assignments Overview";
+	}
+	
+	private int getTotalAssignments()
+	{
+		return InfoListHandler.assignmentNodes.size();
+	}
+	
+	private int getTotalPastDueAssignments()
+	{
+		int count = 0;
+		for(AssignmentNode node : InfoListHandler.assignmentNodes)
+			if(node.getAssignment().isPastDue())
+				count++;
 		
-		add(labelOne, "span");
+		return count;
 	}
-
-	@Override
-	public void refresh()
-	{
-	}
-
 }

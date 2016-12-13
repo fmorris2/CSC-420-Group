@@ -1,42 +1,41 @@
 package org.main_components.main_pane_displays.info_displays.jtree_displays;
 
-import java.awt.Font;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.text.DecimalFormat;
 
 import org.functionality.Student;
-import org.main_components.main_pane_displays.DynamicInfoDisplay;
 
-import net.miginfocom.swing.MigLayout;
-
-public class StudentDisplay extends JPanel implements DynamicInfoDisplay
+public class StudentDisplay extends MainPaneDynamicDisplay
 {
 	private static final long serialVersionUID = -2464804348911959743L;
-	private static final Font FONT =  new Font("Serif", Font.BOLD, 24);
 	
 	private Student student;
 	
 	public StudentDisplay(Student s)
 	{
 		student = s;
-		setLayout(new MigLayout("fill", "10[grow, fill]", ""));
-		addComponents();
-	}
-	
-	protected void addComponents()
-	{
-		JLabel labelOne = new JLabel("DYNAMIC DISPLAY FOR STUDENT: " + student.getFirstName() + " " + student.getLastName());
-		labelOne.setFont(FONT);
-		labelOne.setHorizontalAlignment(JLabel.CENTER);
-		
-		add(labelOne, "span");
 	}
 
 	@Override
-	public void refresh()
+	protected String[] getInfo()
 	{
+		final double COMPLETE = student.getCompletedAssignments().size();
+		final double INCOMPLETE = student.getIncompleteAssignments().size();
+		final double LATE = student.getLateAssignments().size();
+		final int TOTAL = (int)(COMPLETE + INCOMPLETE);
+		final DecimalFormat DF = new DecimalFormat("#.#");
+		final double INCOMPLETE_PERC = (INCOMPLETE / TOTAL) * 100;
 		
+		return new String[]{
+				"Number of classes: " + student.getClasses().size(),
+				"Total assignments: " + TOTAL,
+				"Complete assignments: " + (int)COMPLETE + " (" + DF.format((COMPLETE / TOTAL) * 100) + "%)",
+				"Incomplete assignments: " + (int)INCOMPLETE + " (" + DF.format(INCOMPLETE_PERC) + "%)",
+				"Late assignments: " + (int)LATE};
 	}
 
+	@Override
+	protected String getHeader()
+	{
+		return student.getName();
+	}
 }

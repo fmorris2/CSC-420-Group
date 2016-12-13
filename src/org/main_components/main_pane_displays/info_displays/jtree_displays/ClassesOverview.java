@@ -1,30 +1,47 @@
 package org.main_components.main_pane_displays.info_displays.jtree_displays;
 
-import java.awt.Font;
+import org.functionality.generators.ClassroomGenerator;
+import org.functionality.jtree.InfoListHandler;
+import org.functionality.jtree.node.impl.ClassNode;
 
-import javax.swing.JLabel;
-
-import org.main_components.main_pane_displays.DynamicInfoDisplay;
-import org.main_components.main_pane_displays.MainPaneDisplay;
-
-public class ClassesOverview extends MainPaneDisplay implements DynamicInfoDisplay
+public class ClassesOverview extends MainPaneDynamicDisplay
 {
 	private static final long serialVersionUID = -6821867273410649254L;
-	private static final Font FONT =  new Font("Serif", Font.BOLD, 24);
+	
+	@Override
+	protected String[] getInfo()
+	{
+		return new String[]{"Number of classes: " + getNumClasses(), 
+				"Average students per class: " + getStudentsPerClass(),
+				"Average assignments per class: " + getAssignmentsPerClass()};
+	}
 
 	@Override
-	protected void addComponents()
+	protected String getHeader()
 	{
-		JLabel labelOne = new JLabel("CLASSES OVERVIEW");
-		labelOne.setFont(FONT);
-		labelOne.setHorizontalAlignment(JLabel.CENTER);
+		return "Classes Overview";
+	}
+	
+	private int getNumClasses()
+	{
+		return ClassroomGenerator.CLASS_NAMES.length;
+	}
+	
+	private int getStudentsPerClass()
+	{
+		double students = 0;
+		for(ClassNode node : InfoListHandler.classNodes)
+			students += node.getClassroom().getStudents().size();
 		
-		add(labelOne, "span");
+		return (int)Math.round(students / getNumClasses());
 	}
-
-	@Override
-	public void refresh()
+	
+	private int getAssignmentsPerClass()
 	{
+		double assignments = 0;
+		for(ClassNode node : InfoListHandler.classNodes)
+			assignments += node.getClassroom().getAssignments().size();
+		
+		return (int)Math.round(assignments / getNumClasses());
 	}
-
 }

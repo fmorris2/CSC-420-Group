@@ -81,4 +81,9 @@ public class Student
 		System.out.println("CurrentAssignments size after completion: " + incompleteAssignments.size());
 		completedAssignments.add(a);
 	}
+	
+	public String toString()
+	{
+		return getName();
+	}
 }

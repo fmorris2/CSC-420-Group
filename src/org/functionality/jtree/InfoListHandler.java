@@ -25,14 +25,14 @@ public class InfoListHandler
 	public static final int NUM_STUDENTS = 30;
 	public static final int MAX_ASSIGNMENTS_PER_CLASS = 10;
 	
-	public final InfoNode OVERALL_ROOT = new InfoNode("Info", new HomeDisplay());
-	public final InfoNode CLASSES_ROOT = new InfoNode("Classes", new ClassesOverview());
-	public final InfoNode ASSIGNMENTS_ROOT = new InfoNode("Assignments", new AssignmentsOverview());
-	public final InfoNode STUDENTS_ROOT = new InfoNode("Students", new StudentsOverview());
+	public final InfoNode OVERALL_ROOT = new InfoNode("Info");
+	public final static InfoNode CLASSES_ROOT = new InfoNode("Classes");
+	public final InfoNode ASSIGNMENTS_ROOT = new InfoNode("Assignments");
+	public final InfoNode STUDENTS_ROOT = new InfoNode("Students");
 	
-	private List<ClassNode> classNodes = new ArrayList<>();
-	private List<AssignmentNode> assignmentNodes = new ArrayList<>();
-	private List<StudentNode> studentNodes = new ArrayList<>();
+	public static List<ClassNode> classNodes = new ArrayList<>();
+	public static List<AssignmentNode> assignmentNodes = new ArrayList<>();
+	public static List<StudentNode> studentNodes = new ArrayList<>();
 	
 	private ClassroomGenerator classroomGen = new ClassroomGenerator();
 	private NameGenerator nameGen = new NameGenerator();
@@ -45,16 +45,17 @@ public class InfoListHandler
 		loadClasses();
 		loadAssignments();
 		loadStudents();
+		
+		OVERALL_ROOT.setDisplay(new HomeDisplay());
+		CLASSES_ROOT.setDisplay(new ClassesOverview());
+		ASSIGNMENTS_ROOT.setDisplay(new AssignmentsOverview());
+		STUDENTS_ROOT.setDisplay(new StudentsOverview());
 	}
 	
 	private void loadClasses()
 	{
 		for(Classroom c : classroomGen.getClasses())
-		{
-			ClassNode classNode = new ClassNode(c);
-			classNodes.add(classNode);
-			CLASSES_ROOT.add(classNode);
-		}
+			addClass(c, false);
 	}
 	
 	private void loadStudents()
@@ -88,12 +89,12 @@ public class InfoListHandler
 			for(int i = 0; i < randomAssignmentNumber; i++)
 			{
 				LocalDateTime randomTime = LocalDateTime.now();
-				if(Utils.randomInt(0, 3) > 0)
+				if(Utils.randomInt(0, 3) > 1)
 					randomTime = randomTime.plusDays(Utils.randomInt(1, 30));
 				else
 					randomTime = randomTime.minusDays(Utils.randomInt(1, 30));
 				
-				Assignment a = new Assignment((c.getClassroom().getName() + " assignment " + (i + 1)), randomTime, c.getClassroom(), "");
+				Assignment a = new Assignment((c.getClassroom().getName() + " assignment " + (i + 1)), randomTime, c.getClassroom(), "N/A");
 				AssignmentNode aNode = new AssignmentNode(a);
 				AssignmentNode aNodeClone = new AssignmentNode(a);
 				assignmentNodes.add(aNode);
@@ -101,6 +102,20 @@ public class InfoListHandler
 				c.getAssignments().add(aNodeClone);
 				c.getClassroom().addAssignment(a);
 			}
+		}
+	}
+	
+	public static void addClass(Classroom c, boolean fillStudentNodes)
+	{
+		System.out.println("Adding classroom " + c);
+		ClassNode classNode = new ClassNode(c);
+		classNodes.add(classNode);
+		CLASSES_ROOT.add(classNode);
+		
+		if(fillStudentNodes)
+		{
+			for(Student s : c.getStudents())
+				classNode.getStudentsNode().add(new StudentInClassNode(s, c));
 		}
 	}
 }

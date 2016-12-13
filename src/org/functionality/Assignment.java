@@ -4,22 +4,26 @@ import java.time.LocalDateTime;
 
 public class Assignment
 {
-	private String name;
+	private String name, description;
 	private LocalDateTime dueDate;
 	private Classroom classroom;
-	private String description;
 	
-	public Assignment(String name, LocalDateTime dueDate, Classroom classRoom, String description)
+	public Assignment(String name, LocalDateTime dueDate, Classroom classroom, String description)
 	{
 		this.name = name;
 		this.dueDate = dueDate;
-		this.classroom = classRoom;
+		this.classroom = classroom;
 		this.description = description;
 	}
 	
 	public String getName()
 	{
 		return name;
+	}
+	
+	public String getDescription()
+	{
+		return description;
 	}
 	
 	public LocalDateTime getDueDate()
@@ -30,5 +34,10 @@ public class Assignment
 	public Classroom getClassroom()
 	{
 		return classroom;
+	}
+	
+	public boolean isPastDue()
+	{
+		return LocalDateTime.now().isAfter(dueDate);
 	}
 }

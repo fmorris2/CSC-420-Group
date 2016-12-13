@@ -11,7 +11,6 @@ public class HelpDisplay extends MainPaneDisplay
 	public HelpDisplay() {
 	}
 	private static final long serialVersionUID = 2507460209069385990L;
-	private static final Font FONT =  new Font("Serif", Font.PLAIN, 14);
 
 	@Override
 	protected void addComponents()
@@ -30,7 +29,7 @@ public class HelpDisplay extends MainPaneDisplay
 				+ "<br>"
 				+ "<p>&nbsp;&nbsp;The list on the left side of the screen contains list of all Classes, Students, and Assignments. "
 				+ "To navigate, either double click on the section you would like to open/close or click that section's arrow.</p></html>");
-		label1.setFont(FONT);
+		label1.setFont(MainPaneDisplay.INFO_FONT);
 		label1.setHorizontalAlignment(JLabel.CENTER);
 
 		add(label1, "span");

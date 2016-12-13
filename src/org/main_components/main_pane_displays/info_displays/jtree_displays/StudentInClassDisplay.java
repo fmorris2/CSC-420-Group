@@ -1,20 +1,12 @@
 package org.main_components.main_pane_displays.info_displays.jtree_displays;
 
-import java.awt.Font;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
+import org.functionality.Assignment;
 import org.functionality.Classroom;
 import org.functionality.Student;
-import org.main_components.main_pane_displays.DynamicInfoDisplay;
 
-import net.miginfocom.swing.MigLayout;
-
-public class StudentInClassDisplay extends JPanel implements DynamicInfoDisplay
+public class StudentInClassDisplay extends MainPaneDynamicDisplay
 {
 	private static final long serialVersionUID = 6572889490347849148L;
-	private static final Font FONT = new Font("Serif", Font.BOLD, 24);
 
 	private Student student;
 	private Classroom classroom;
@@ -23,23 +15,54 @@ public class StudentInClassDisplay extends JPanel implements DynamicInfoDisplay
 	{
 		student = s;
 		classroom = c;
-		setLayout(new MigLayout("fill", "10[grow, fill]", ""));
-		addComponents();
-	}
-
-	protected void addComponents()
-	{
-		JLabel labelOne = new JLabel("DYNAMIC DISPLAY FOR STUDENT: " + student.getFirstName() + " " + student.getLastName() + " IN CLASS: " + classroom.getName());
-		labelOne.setFont(FONT);
-		labelOne.setHorizontalAlignment(JLabel.CENTER);
-
-		add(labelOne, "span");
 	}
 
 	@Override
-	public void refresh()
+	protected String[] getInfo()
 	{
-
+		final int TOTAL = classroom.getAssignments().size();
+		final int COMPLETE = getNumCompleteAssignments();
+		final int INCOMPLETE = TOTAL - COMPLETE;
+		final int LATE = getNumLateAssignments();
+		
+		return new String[]{
+				"Total assignments: " + TOTAL,
+				"Complete assignments: " + COMPLETE,
+				"Incomplete assignments: " + INCOMPLETE,
+				"Late assignments: " + LATE};
 	}
 
+	@Override
+	protected String getHeader()
+	{
+		return student.getName() + " - " + classroom.getName();
+	}
+	
+	private int getNumCompleteAssignments()
+	{
+		int num = 0;
+		for(Assignment a : classroom.getAssignments())
+			for(Assignment o : student.getCompletedAssignments())
+				if(a.equals(o))
+				{
+					num++;
+					break;
+				}
+		
+		return num;
+	}
+	
+	private int getNumLateAssignments()
+	{
+		int num = 0;
+		for(Assignment a : classroom.getAssignments())
+			for(Assignment o : student.getLateAssignments())
+				if(a.equals(o))
+				{
+					num++;
+					break;
+				}
+		
+		return num;
+	}
 }
