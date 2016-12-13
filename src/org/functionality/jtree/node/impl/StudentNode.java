@@ -42,6 +42,18 @@ public class StudentNode extends InfoNode
 			completedAssignmentsNode.add(new AssignmentNode(a));
 	}
 	
+	public void loadAssignment(Assignment a)
+	{
+		if(student.getCompletedAssignments().contains(a))
+			completedAssignmentsNode.add(new AssignmentNode(a));
+		
+		if(student.getLateAssignments().contains(a))
+			lateAssignmentsNode.add(new AssignmentNode(a));
+		
+		if(student.getIncompleteAssignments().contains(a))
+			incompleteAssignmentsNode.add(new AssignmentNode(a));
+	}
+	
 	public Student getStudent()
 	{
 		return student;

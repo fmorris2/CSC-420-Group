@@ -1,13 +1,15 @@
 package org.main_components.main_pane_displays.creation_displays;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
+import java.util.Date;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -51,6 +53,7 @@ public class AddAssignment extends MainPaneDisplay implements ActionListener
 		descriptionArea.setMaximumSize(new Dimension(400, 400));
 		descriptionArea.setLineWrap(true);
 		descriptionArea.setFont(MainPaneDisplay.MINOR_FONT);
+		descriptionArea.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		boxModel = new DefaultComboBoxModel<>();
 		classChoose = getClassBox();
 		JLabel dateLabel = new JLabel("Due Date: ");
@@ -107,8 +110,9 @@ public class AddAssignment extends MainPaneDisplay implements ActionListener
 		Instant instant = d.toInstant();
 		LocalDateTime ldt = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
 		System.out.println(ldt.toString());
-		Assignment a = new Assignment(fieldName.getText(), ldt, new Classroom(classChoose.getSelectedItem().toString()), descriptionArea.getText());
-		//NEED HELP HERE FRED
+		Assignment toAdd = new Assignment(fieldName.getText(), ldt, 
+				classChoose.getItemAt(classChoose.getSelectedIndex()), descriptionArea.getText());
+		InfoListHandler.addAssignment(toAdd);
 	}
 	private boolean allfieldsfull() {
 		if (fieldName.getText().isEmpty() || descriptionArea.getText().isEmpty()){

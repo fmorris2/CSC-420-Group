@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -14,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import org.functionality.Classroom;
+import org.functionality.Student;
 import org.functionality.jtree.InfoListHandler;
 import org.functionality.jtree.node.impl.ClassNode;
 import org.main_components.main_pane_displays.MainPaneDisplay;
@@ -84,10 +87,24 @@ public class AddStudent extends MainPaneDisplay implements ActionListener
 		}
 		return new JList<>(inModel);
 	}
+	
+	private void addStudentToTree()
+	{
+		String firstName = nameFirstField.getText();
+		String lastName = nameLastField.getText();
+		if(firstName == null || lastName == null)
+			return;
+		
+		Student newStudent = new Student(firstName, lastName);
+		List<Classroom> classesToAdd = new ArrayList<>();
+		for(int i = 0; i < outModel.getSize(); i++)
+			classesToAdd.add(outModel.getElementAt(i));
+		
+		InfoListHandler.addStudent(newStudent, classesToAdd);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// NEED HELP HERE FRED
 		if (e.getActionCommand().equals("ADD")) {
 			outModel.addElement(inList.getSelectedValue());
 			inModel.removeElement(inList.getSelectedValue());
@@ -95,7 +112,7 @@ public class AddStudent extends MainPaneDisplay implements ActionListener
 			inModel.addElement(outList.getSelectedValue());
 			outModel.removeElement(outList.getSelectedValue());
 		} else {
-			//NEED HELP HERE
+			addStudentToTree();
 		}
 	}
 

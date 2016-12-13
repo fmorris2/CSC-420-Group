@@ -16,24 +16,24 @@ public class Classroom
 		assignments = new ArrayList<>();
 	}
 	
-	public void addStudent(Student s)
+	public void addStudent(Student s, boolean random)
 	{
 		if(!students.contains(s))
 		{	
 			s.getClasses().add(this);
 			students.add(s);
 			for(Assignment a : assignments)
-				s.addAssignment(a);
+				s.addAssignment(a, random);
 		}
 	}
 	
-	public void addAssignment(Assignment a)
+	public void addAssignment(Assignment a, boolean random)
 	{
 		if(!assignments.contains(a))
 		{
 			assignments.add(a);
 			for(Student s : students)
-				s.addAssignment(a);
+				s.addAssignment(a, random);
 		}
 	}
 	

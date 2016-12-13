@@ -96,10 +96,9 @@ public class AddClass extends MainPaneDisplay implements ActionListener
 				Student toAdd = outModel.getElementAt(i);
 				if(toAdd == null)
 					continue;
-				newClass.addStudent(toAdd);
+				newClass.addStudent(toAdd, false);
 			}
 			
-			System.out.println("Adding new class: " + newClass);
 			InfoListHandler.addClass(newClass, true);
 		}
 		

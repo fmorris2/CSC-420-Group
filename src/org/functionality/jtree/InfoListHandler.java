@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JTree;
+import javax.swing.tree.DefaultTreeModel;
+
 import org.functionality.Assignment;
 import org.functionality.Classroom;
 import org.functionality.Student;
@@ -27,8 +30,8 @@ public class InfoListHandler
 	
 	public final InfoNode OVERALL_ROOT = new InfoNode("Info");
 	public final static InfoNode CLASSES_ROOT = new InfoNode("Classes");
-	public final InfoNode ASSIGNMENTS_ROOT = new InfoNode("Assignments");
-	public final InfoNode STUDENTS_ROOT = new InfoNode("Students");
+	public final static InfoNode ASSIGNMENTS_ROOT = new InfoNode("Assignments");
+	public final static InfoNode STUDENTS_ROOT = new InfoNode("Students");
 	
 	public static List<ClassNode> classNodes = new ArrayList<>();
 	public static List<AssignmentNode> assignmentNodes = new ArrayList<>();
@@ -36,9 +39,14 @@ public class InfoListHandler
 	
 	private ClassroomGenerator classroomGen = new ClassroomGenerator();
 	private NameGenerator nameGen = new NameGenerator();
+	private static JTree tree;
+	private static DefaultTreeModel treeModel;
 	
-	public InfoListHandler()
+	public InfoListHandler(JTree tree)
 	{
+		InfoListHandler.tree = tree;
+		treeModel = new DefaultTreeModel(OVERALL_ROOT);
+		tree.setModel(treeModel);
 		OVERALL_ROOT.add(CLASSES_ROOT);
 		OVERALL_ROOT.add(ASSIGNMENTS_ROOT);
 		OVERALL_ROOT.add(STUDENTS_ROOT);
@@ -74,11 +82,33 @@ public class InfoListHandler
 				
 				StudentInClassNode studentNodeClone = new StudentInClassNode(s, c.getClassroom());
 				c.getStudentsNode().add(studentNodeClone);
-				c.getClassroom().addStudent(s);
+				c.getClassroom().addStudent(s, true);
 			}
 			
 			studentNode.loadAssignments();
 		}
+	}
+	
+	public static void addStudent(Student s, List<Classroom> c)
+	{
+		//Add student to tree
+		StudentNode studentNode = new StudentNode(s);
+		studentNodes.add(studentNode);
+		STUDENTS_ROOT.add(studentNode);
+		
+		//Add student to each class
+		for(ClassNode node : classNodes)
+		{
+			if(c.contains(node.getClassroom()))
+			{
+				StudentInClassNode studentNodeClone = new StudentInClassNode(s, node.getClassroom());
+				node.getStudentsNode().add(studentNodeClone);
+				node.getClassroom().addStudent(s, false);
+			}
+		}
+		
+		studentNode.loadAssignments();
+		treeModel.reload();
 	}
 	
 	private void loadAssignments()
@@ -95,14 +125,34 @@ public class InfoListHandler
 					randomTime = randomTime.minusDays(Utils.randomInt(1, 30));
 				
 				Assignment a = new Assignment((c.getClassroom().getName() + " assignment " + (i + 1)), randomTime, c.getClassroom(), "N/A");
-				AssignmentNode aNode = new AssignmentNode(a);
-				AssignmentNode aNodeClone = new AssignmentNode(a);
-				assignmentNodes.add(aNode);
-				ASSIGNMENTS_ROOT.add(aNode);
-				c.getAssignments().add(aNodeClone);
-				c.getClassroom().addAssignment(a);
+				addAssignment(a);
 			}
 		}
+	}
+	
+	public static void addAssignment(Assignment a)
+	{
+		AssignmentNode aNode = new AssignmentNode(a);
+		AssignmentNode aNodeClone = new AssignmentNode(a);
+		assignmentNodes.add(aNode);
+		ASSIGNMENTS_ROOT.add(aNode);
+		for(ClassNode classNode : classNodes)
+		{
+			if(classNode.getClassroom().equals(a.getClassroom()))
+			{
+				classNode.getAssignments().add(aNodeClone);
+				classNode.getClassroom().addAssignment(a, false);
+				break;
+			}
+		}
+		
+		for(StudentNode studentNode : studentNodes)
+		{
+			if(a.getClassroom().getStudents().contains(studentNode.getStudent()))
+				studentNode.loadAssignment(a);
+		}
+		
+		treeModel.reload();
 	}
 	
 	public static void addClass(Classroom c, boolean fillStudentNodes)
@@ -117,5 +167,7 @@ public class InfoListHandler
 			for(Student s : c.getStudents())
 				classNode.getStudentsNode().add(new StudentInClassNode(s, c));
 		}
+		
+		((DefaultTreeModel)(tree.getModel())).reload();
 	}
 }

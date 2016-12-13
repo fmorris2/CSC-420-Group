@@ -19,11 +19,12 @@ public class InfoList extends JPanel
 	
 	private JScrollPane scrollPane = new JScrollPane();
 	private JTree tree;
-	private InfoListHandler handler = new InfoListHandler();
+	private InfoListHandler handler;
 	
 	public InfoList()
 	{		
-		tree = new JTree(handler.OVERALL_ROOT);
+		tree = new JTree();
+		handler = new InfoListHandler(tree);
 		tree.setFont(MainPaneDisplay.MINOR_FONT);
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		tree.addTreeSelectionListener(new TreeListener());
@@ -33,4 +34,5 @@ public class InfoList extends JPanel
 		scrollPane.setViewportView(tree);
 		add(scrollPane, "grow, width max(300, 50%)");
 	}
+
 }

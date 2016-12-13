@@ -62,12 +62,12 @@ public class Student
 		return lateAssignments;
 	}
 	
-	public void addAssignment(Assignment a)
+	public void addAssignment(Assignment a, boolean random)
 	{
 		if(!incompleteAssignments.contains(a) && !completedAssignments.contains(a))
 		{
 			//FOR RANDOMIZATION WITH GENERATION
-			if(Utils.randomInt(0, 3) > 0)
+			if(Utils.randomInt(0, 3) > 0 && random)
 				completedAssignments.add(a);
 			else
 				incompleteAssignments.add(a);
