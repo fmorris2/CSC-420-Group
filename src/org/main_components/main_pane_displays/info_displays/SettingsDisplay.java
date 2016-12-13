@@ -1,19 +1,15 @@
 package org.main_components.main_pane_displays.info_displays;
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.main_components.main_pane_displays.MainPaneDisplay;
-
-import net.miginfocom.swing.MigLayout;
 
 public class SettingsDisplay extends MainPaneDisplay
 {
@@ -92,10 +88,10 @@ public class SettingsDisplay extends MainPaneDisplay
 		});
 			
 		
-		notif_D= new JCheckBox("Recieve about due assignments?");
+		notif_D= new JCheckBox("Recieve notifications about due assignments?");
 		notif_D.setFont(MainPaneDisplay.MINOR_FONT);
 		
-		notif_L= new JCheckBox("Recieve about late assignments?");
+		notif_L= new JCheckBox("Recieve notifications about late assignments?");
 		notif_L.setFont(MainPaneDisplay.MINOR_FONT);
 		notif_L.setSelected(true);
 

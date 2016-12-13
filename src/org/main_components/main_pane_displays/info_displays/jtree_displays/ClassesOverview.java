@@ -24,7 +24,7 @@ public class ClassesOverview extends MainPaneDynamicDisplay
 	
 	private int getNumClasses()
 	{
-		return ClassroomGenerator.CLASS_NAMES.length;
+		return InfoListHandler.classNodes.size();
 	}
 	
 	private int getStudentsPerClass()

@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 
 import org.TeacherEdition;
+import org.functionality.jtree.InfoListHandler;
 import org.main_components.main_pane_displays.HomeDisplay;
 
 public class HomeButton extends JButton
@@ -20,6 +21,7 @@ public class HomeButton extends JButton
 	
 	private void actionListener(ActionEvent e)
 	{
+		InfoListHandler.treeModel.reload();
 		TeacherEdition.changeMainDisplay(new HomeDisplay());
 	}
 	

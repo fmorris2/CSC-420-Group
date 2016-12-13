@@ -40,7 +40,7 @@ public class InfoListHandler
 	private ClassroomGenerator classroomGen = new ClassroomGenerator();
 	private NameGenerator nameGen = new NameGenerator();
 	private static JTree tree;
-	private static DefaultTreeModel treeModel;
+	public static DefaultTreeModel treeModel;
 	
 	public InfoListHandler(JTree tree)
 	{

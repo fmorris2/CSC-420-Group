@@ -27,6 +27,18 @@ public abstract class MainPaneDynamicDisplay extends MainPaneDisplay
 		}
 	}
 	
+	public void refresh()
+	{
+		if(this.hasAddedComponents())
+		{
+			System.out.println("Refresh!!");
+			removeAll();
+			addComponents();
+			revalidate();
+			repaint();
+		}
+	}
+	
 	protected abstract String[] getInfo();
 	protected abstract String getHeader();
 
